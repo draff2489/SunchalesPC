@@ -37,29 +37,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        RecyclerView rvTournaments = (RecyclerView) findViewById(R.id.rv_tournaments);
-        LinearLayoutManager glm = new LinearLayoutManager(mContext);
-        rvTournaments.setLayoutManager(glm);
-        TournamentAdapter adapter = new TournamentAdapter(dataSet());
-        rvTournaments.setAdapter(adapter);
-
         Log.d(TAG, "onCreate: starting");
 
         initImageLoader();
         setupBottomNavigationView();
         setupViewPager();
-    }
-
-  /*  Datos de prueba*/
-    private ArrayList<Tournaments> dataSet() {
-        ArrayList<Tournaments> data = new ArrayList<>();
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        return data;
     }
 
     private void initImageLoader(){

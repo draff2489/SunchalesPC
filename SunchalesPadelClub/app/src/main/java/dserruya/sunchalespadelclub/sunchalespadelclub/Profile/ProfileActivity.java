@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,8 +18,12 @@ import android.widget.ProgressBar;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+
+import dserruya.sunchalespadelclub.sunchalespadelclub.DataBase.Tournaments;
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.BottomNavigationViewHelper;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.TournamentAdapter;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.UniversalImageLoader;
 
 public class ProfileActivity extends AppCompatActivity{
@@ -44,18 +49,34 @@ public class ProfileActivity extends AppCompatActivity{
         setupToolbar();
         setupActivityWidgets();
         setProfileImage();
+        setupRecyclerView();
     }
 
     private void setupRecyclerView(){
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_tournaments);
-        recyclerView.setHasFixedSize(true);
+        RecyclerView rvTournaments = (RecyclerView) findViewById(R.id.rv_tournaments);
+        LinearLayoutManager glm = new LinearLayoutManager(mContext);
+        rvTournaments.setLayoutManager(glm);
+        TournamentAdapter adapter = new TournamentAdapter(dataSet());
+        rvTournaments.setAdapter(adapter);
     }
 
 
         private void setProfileImage(){
         Log.d(TAG, "setProfileImage: setting profile photo");
-        String imageURL = "https://static1.squarespace.com/static/54f3390ee4b095d9141b86a5/t/55d748b2e4b086d36aa80de2/1475761660263/Phishing+Tests";
-        UniversalImageLoader.setImage(imageURL, profilePhoto, mProgressBar, null);
+        String imageURL = "static1.squarespace.com/static/54f3390ee4b095d9141b86a5/t/55d748b2e4b086d36aa80de2/1475761660263/Phishing+Tests";
+        UniversalImageLoader.setImage(imageURL, profilePhoto, mProgressBar, "https://");
+    }
+
+    /*  Datos de prueba*/
+    private ArrayList<Tournaments> dataSet() {
+        ArrayList<Tournaments> data = new ArrayList<>();
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        return data;
     }
 
     private void setupActivityWidgets(){
