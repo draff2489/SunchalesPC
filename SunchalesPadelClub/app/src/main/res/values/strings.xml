@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sunchales Padel Club</string>
+    <string name="edit_profile_fragment">Editar Perfil</string>
+    <string name="log_out_fragment">Log Out</string>
+    <string name="change_photo">Cambiar Foto</string>
+
+
+</resources>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import dserruya.pc.sunchales.sunchalespc.tournament.TournamentsActivity;
 import dserruya.pc.sunchales.sunchalespc.users.UsersActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callTournamentScreen(View view) {
-        Intent intent = new Intent(this, Tournament.class);
+        Intent intent = new Intent(this, TournamentsActivity.class);
         startActivity(intent);
     }
 

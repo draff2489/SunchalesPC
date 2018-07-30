@@ -25,16 +25,16 @@
             android:label="@string/title_activity_add_edit"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".Tournament"
-            android:label="Torneos"
+            android:name=".users.UsersActivity"
+            android:label="Jugadores"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".users.UsersActivity"
-            android:label="Jugadores"
+            android:name=".tournament.TournamentsActivity"
+            android:label="Torneos"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

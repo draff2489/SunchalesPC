@@ -4,11 +4,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class UsersDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Users.db";
+    public static final String TAG = "DBHelper";
 
     public UsersDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -16,7 +18,7 @@ public class UsersDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + UsersContract.UserEntry.TABLE_NAME + " ("
+        db.execSQL("CREATE TABLE " + UsersContract.UserEntry.TABLE_USERS + " ("
                 + UsersContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + UsersContract.UserEntry.ID + " TEXT NOT NULL,"
                 + UsersContract.UserEntry.NAME + " TEXT NOT NULL,"
@@ -68,14 +70,19 @@ public class UsersDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // No hay operaciones
+        Log.w(TAG, "Upgrading the database from version " + oldVersion + " to " + newVersion);
+    //clear all data
+        db.execSQL("DROP TABLE IF EXISTS " + UsersContract.UserEntry.TABLE_USERS);
+
+        //recreate tables
+        onCreate(db);
     }
 
     public long saveUser(User user) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         return sqLiteDatabase.insert(
-                UsersContract.UserEntry.TABLE_NAME,
+                UsersContract.UserEntry.TABLE_USERS,
                 null,
                 user.toContentValues());
 
@@ -84,7 +91,7 @@ public class UsersDbHelper extends SQLiteOpenHelper {
     public Cursor getAllUsers() {
         return getReadableDatabase()
                 .query(
-                        UsersContract.UserEntry.TABLE_NAME,
+                        UsersContract.UserEntry.TABLE_USERS,
                         null,
                         null,
                         null,
@@ -95,7 +102,7 @@ public class UsersDbHelper extends SQLiteOpenHelper {
 
     public Cursor getUserById(String userId) {
         Cursor c = getReadableDatabase().query(
-                UsersContract.UserEntry.TABLE_NAME,
+                UsersContract.UserEntry.TABLE_USERS,
                 null,
                 UsersContract.UserEntry.ID + " LIKE ?",
                 new String[]{userId},
@@ -107,14 +114,14 @@ public class UsersDbHelper extends SQLiteOpenHelper {
 
     public int deleteUser(String userId) {
         return getWritableDatabase().delete(
-                UsersContract.UserEntry.TABLE_NAME,
+                UsersContract.UserEntry.TABLE_USERS,
                 UsersContract.UserEntry.ID + " LIKE ?",
                 new String[]{userId});
     }
 
     public int updateUser(User user, String userId) {
         return getWritableDatabase().update(
-                UsersContract.UserEntry.TABLE_NAME,
+                UsersContract.UserEntry.TABLE_USERS,
                 user.toContentValues(),
                 UsersContract.UserEntry.ID + " LIKE ?",
                 new String[]{userId}
