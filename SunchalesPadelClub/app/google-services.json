@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "709629457056",
+    "firebase_url": "https://sunchalespadelclub-c05d5.firebaseio.com",
+    "project_id": "sunchalespadelclub-c05d5",
+    "storage_bucket": "sunchalespadelclub-c05d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709629457056:android:0bd9a56550dd04be",
+        "android_client_info": {
+          "package_name": "dserruya.sunchalespadelclub.sunchalespadelclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709629457056-ilofvknoa7ah96sr9evsjj0ooitrlhg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dserruya.sunchalespadelclub.sunchalespadelclub",
+            "certificate_hash": "b254afffb2869fcb159729348857fc6adc1a2e24"
+          }
+        },
+        {
+          "client_id": "709629457056-q299mb9j4k0dktbqqjhboi71182970m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBej83YZawBbbRTDmkIICoNyHIg_dP5Zig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709629457056-q299mb9j4k0dktbqqjhboi71182970m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
