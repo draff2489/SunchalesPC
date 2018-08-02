@@ -1,12 +1,24 @@
 <resources>
     <string name="app_name">Sunchales Padel Club</string>
-    <string name="edit_profile_fragment">Editar Perfil</string>
-    <string name="log_out_fragment">Log Out</string>
     <string name="change_photo">Cambiar Foto</string>
-
-    <string name="google_status_fmt">Google User: %s</string>
-    <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="signed_out">Desconectado</string>
+
+    <!--Fragment Names-->
+    <string name="edit_profile_fragment">Editar Perfil</string>
+    <string name="log_out_fragment">Cerrar Sesion</string>
+
+
+    <!--Firebase Messages-->
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="google_status_fmt">Google User: %s</string>
+
+    <!-- Firebase database fields -->
+    <string name="dbname_users">users</string>
+    <string name="dbname_user_account_settings">user_account_settings</string>
+    <string name="auth_failed">Fallo al autenticar.</string>
+    <string name="auth_success">Exito al autenticar.</string>
+
+
 
 
 </resources>

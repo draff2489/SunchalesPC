@@ -70,12 +70,12 @@ public class ProfileActivity extends AppCompatActivity{
     /*  Datos de prueba*/
     private ArrayList<Tournaments> dataSet() {
         ArrayList<Tournaments> data = new ArrayList<>();
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
-        data.add(new Tournaments("Radioactive", "Imagine Dragons", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "5", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "1", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "6", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
         return data;
     }
 
