@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        mDisplayName = (TextView) view.findViewById(R.id.displayName);
+        mDisplayName = (TextView) view.findViewById(R.id.displayname);
         mUsername = (TextView) view.findViewById(R.id.username);
         mDescription = (TextView) view.findViewById(R.id.description);
         mProfilePhoto = (CircleImageView) view.findViewById(R.id.profile_photo);

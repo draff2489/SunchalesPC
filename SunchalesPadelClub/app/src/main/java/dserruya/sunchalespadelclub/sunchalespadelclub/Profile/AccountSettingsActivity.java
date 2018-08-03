@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -18,19 +19,26 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.BottomNavigationViewHelper;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.FirebaseMethods;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.SectionsStatePagerAdapter;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "AccountSettingsActivity";
     private static final int ACTIVITY_NUM = 3;
-
 
     private Context mContext;
 
