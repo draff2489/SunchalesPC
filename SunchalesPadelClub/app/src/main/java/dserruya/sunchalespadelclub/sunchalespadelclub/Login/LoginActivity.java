@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                                 startActivity(intent);
                                             }else{
-                                                Toast.makeText(mContext, "Email no verificado. \n Verifique su casilla de correos.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(mContext, "Email no verificado.\n Verifique su casilla de correos.", Toast.LENGTH_SHORT).show();
                                                 mProgressBar.setVisibility(View.GONE);
                                                 mPleaseWait.setVisibility(View.GONE);
                                                 mAuth.signOut();

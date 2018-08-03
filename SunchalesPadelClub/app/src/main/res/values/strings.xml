@@ -6,6 +6,7 @@
     <!--Fragment Names-->
     <string name="edit_profile_fragment">Editar Perfil</string>
     <string name="log_out_fragment">Cerrar Sesion</string>
+    <string name="profile_fragment">Profilen</string>
 
 
     <!--Firebase Messages-->
@@ -18,7 +19,10 @@
     <string name="auth_failed">Fallo al autenticar.</string>
     <string name="auth_success">Exito al autenticar.</string>
 
+    <!--Intent Extras-->
+    <string name="calling_activity">calling activitys</string>
 
-
+    <!--Activity names-->
+    <string name="profile_activity">profile activity</string>
 
 </resources>
