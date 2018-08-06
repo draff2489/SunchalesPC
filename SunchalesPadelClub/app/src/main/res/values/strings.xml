@@ -8,6 +8,9 @@
     <string name="log_out_fragment">Cerrar Sesion</string>
     <string name="profile_fragment">Profilen</string>
 
+    <!--Dialog Names-->
+    <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
+
 
     <!--Firebase Messages-->
     <string name="firebase_status_fmt">Firebase User: %s</string>
@@ -19,6 +22,12 @@
     <string name="auth_failed">Fallo al autenticar.</string>
     <string name="auth_success">Exito al autenticar.</string>
     <string name="field_username">username</string>
+    <string name="field_email">email</string>
+    <string name="field_display_name">display_name</string>
+    <string name="field_description">description</string>
+    <string name="field_phone_number">phone_number</string>
+
+
 
 
     <!--Intent Extras-->

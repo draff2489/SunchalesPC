@@ -43,6 +43,39 @@ public class FirebaseMethods {
         }
     }
 
+    /**
+     * Update user_account_settings node for current user
+     * @param displayname
+     * @param description
+     * @param phoneNumber
+     */
+    public void updateUserAccountSettings(String displayname, String description, long phoneNumber){
+        Log.d(TAG, "updateUserAccountSettings: updating user_account_settings");
+
+        if (displayname != null){
+            myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_display_name))
+                    .setValue(displayname);
+        }
+        if (description != null) {
+            myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_description))
+                    .setValue(description);
+        }
+        if (phoneNumber != 0) {
+            myRef.child(mContext.getString(R.string.dbname_users))
+                    .child(userID)
+                    .child(mContext.getString(R.string.field_phone_number))
+                    .setValue(phoneNumber);
+        }
+    }
+
+    /**
+     * Update Username in the user's node and the user_account_settings node
+     * @param username
+     */
     public void updateUsername(String username){
         Log.d(TAG, "updateUsername: Updating username to " + username);
 
@@ -56,6 +89,21 @@ public class FirebaseMethods {
                 .child(mContext.getString(R.string.field_username))
                 .setValue(username);
     }
+
+    /**
+     * Update the email in the user's node
+     * @param email
+     */
+    public void updateEmail(String email){
+        Log.d(TAG, "updateEmail: Updating email to " + email);
+
+        myRef.child(mContext.getString(R.string.dbname_users))
+                .child(userID)
+                .child(mContext.getString(R.string.field_email))
+                .setValue(email);
+
+    }
+
 
    /* public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists.");
