@@ -18,6 +18,8 @@
     <string name="dbname_user_account_settings">user_account_settings</string>
     <string name="auth_failed">Fallo al autenticar.</string>
     <string name="auth_success">Exito al autenticar.</string>
+    <string name="field_username">username</string>
+
 
     <!--Intent Extras-->
     <string name="calling_activity">calling activitys</string>
