@@ -15,34 +15,41 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/backArrow"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/ivCloseShare"
                     android:layout_marginRight="20dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_backarrow" />
+                    android:src="@drawable/ic_black_x"/>
 
-                <TextView
-                    android:id="@+id/profileName"
+                <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_toRightOf="@+id/backArrow"
-                    android:text="Opciones"
+                    android:layout_toRightOf="@+id/ivCloseShare"
+                    android:id="@+id/spinnerDirectory"
+                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:text="Galeria"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical">
+                </Spinner>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_next"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/blue"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tvNext"/>
 
             </RelativeLayout>
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
 
 </merge>

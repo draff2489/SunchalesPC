@@ -2,6 +2,8 @@
     <string name="app_name">Sunchales Padel Club</string>
     <string name="change_photo">Cambiar Foto</string>
     <string name="signed_out">Desconectado</string>
+    <string name="tv_next">Siguiente</string>
+
 
     <!--Fragment Names-->
     <string name="edit_profile_fragment">Editar Perfil</string>
@@ -27,13 +29,12 @@
     <string name="field_description">description</string>
     <string name="field_phone_number">phone_number</string>
 
-
-
-
     <!--Intent Extras-->
     <string name="calling_activity">calling activitys</string>
 
     <!--Activity names-->
     <string name="profile_activity">profile activity</string>
+
+    <string name="gallery">Galeria</string>
 
 </resources>

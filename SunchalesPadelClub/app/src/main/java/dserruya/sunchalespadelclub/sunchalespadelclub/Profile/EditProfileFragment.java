@@ -184,16 +184,22 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
          * change settings that do not require uniqueness
          */
 
-        if (!mUserSettings.getSettings().getDisplay_name().equals(displayName)){
+        String toastMessage = "";
+        if (!mUserSettings.getSettings().getDisplay_name().equals(displayName)) {
             mFirebaseMethods.updateUserAccountSettings(displayName, null, 0);
+            toastMessage = "Datos actualizados";
         }
-        if (!mUserSettings.getSettings().getDescription().equals(description)){
+        if (!mUserSettings.getSettings().getDescription().equals(description)) {
             mFirebaseMethods.updateUserAccountSettings(null, description, 0);
+            toastMessage = "Datos actualizados";
         }
-       if (mUserSettings.getUser().getPhone_number() != phoneNumber){
-           mFirebaseMethods.updateUserAccountSettings(null, null, phoneNumber);
-
-       }
+        if (mUserSettings.getUser().getPhone_number() != phoneNumber) {
+            mFirebaseMethods.updateUserAccountSettings(null, null, phoneNumber);
+            toastMessage = "Datos actualizados";
+        }
+        if (toastMessage != "") {
+            Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
