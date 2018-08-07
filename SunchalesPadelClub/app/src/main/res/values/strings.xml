@@ -31,10 +31,14 @@
 
     <!--Intent Extras-->
     <string name="calling_activity">calling activitys</string>
+    <string name="selected_image">selected_image</string>
+
 
     <!--Activity names-->
     <string name="profile_activity">profile activity</string>
 
     <string name="gallery">Galeria</string>
+
+
 
 </resources>
