@@ -4,7 +4,6 @@
     <string name="signed_out">Desconectado</string>
     <string name="tv_next">Siguiente</string>
 
-
     <!--Fragment Names-->
     <string name="edit_profile_fragment">Editar Perfil</string>
     <string name="log_out_fragment">Cerrar Sesion</string>
@@ -12,11 +11,6 @@
 
     <!--Dialog Names-->
     <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
-
-
-    <!--Firebase Messages-->
-    <string name="firebase_status_fmt">Firebase User: %s</string>
-    <string name="google_status_fmt">Google User: %s</string>
 
     <!-- Firebase database fields -->
     <string name="dbname_users">users</string>
@@ -35,11 +29,9 @@
     <string name="new_photo">new_photo</string>
     <string name="profile_photo">profile_photo</string>
 
-
     <!--Intent Extras-->
     <string name="calling_activity">calling activitys</string>
     <string name="selected_image">selected_image</string>
-
 
     <!--Activity names-->
     <string name="profile_activity">profile activity</string>
