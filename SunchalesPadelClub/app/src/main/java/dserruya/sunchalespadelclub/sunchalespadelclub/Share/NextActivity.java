@@ -99,6 +99,7 @@ public class NextActivity extends AppCompatActivity {
     private void setImage(){
         Intent intent = getIntent();
         ImageView image = (ImageView) findViewById(R.id.imageShare);
+        imageUrl = intent.getStringExtra(getString(R.string.selected_image));
         UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image, null, mAppend );
     }
 
