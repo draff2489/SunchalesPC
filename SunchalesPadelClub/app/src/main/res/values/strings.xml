@@ -8,7 +8,7 @@
     <!--Fragment Names-->
     <string name="edit_profile_fragment">Editar Perfil</string>
     <string name="log_out_fragment">Cerrar Sesion</string>
-    <string name="profile_fragment">Profilen</string>
+    <string name="profile_fragment">Profile</string>
 
     <!--Dialog Names-->
     <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
