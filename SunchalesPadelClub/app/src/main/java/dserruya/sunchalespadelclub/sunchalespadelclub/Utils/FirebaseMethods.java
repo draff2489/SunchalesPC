@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.User;
@@ -29,6 +31,7 @@ public class FirebaseMethods {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference myRef;
     private String userID;
+    private StorageReference mStorageReference;
 
     private Context mContext;
 
@@ -37,10 +40,40 @@ public class FirebaseMethods {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         myRef = mFirebaseDatabase.getReference();
         mContext = context;
+        mStorageReference = FirebaseStorage.getInstance().getReference();
 
         if (mAuth.getCurrentUser() != null) {
             userID = mAuth.getCurrentUser().getUid();
         }
+    }
+
+    public int getImageCount(DataSnapshot dataSnapshot) {
+        int count = 0;
+        for (DataSnapshot ds : dataSnapshot
+                .child(mContext.getString(R.string.dbname_user_photos))
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .getChildren()) {
+            count++;
+        }
+        return count;
+    }
+
+    public void uploadNewPhoto(String photoType, String caption, int count, String imageUrl){
+        Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
+
+        FilePaths filePaths = new FilePaths();
+        //case1: New photo
+        if (photoType.equals(mContext.getString(R.string.new_photo))){
+            Log.d(TAG, "uploadNewPhoto: uploading new photo");
+
+            String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            StorageReference storageReference = mStorageReference
+                    .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
+
+        } else if (photoType.equals(mContext.getString(R.string.profile_photo))){
+            Log.d(TAG, "uploadNewPhoto: uploading new profile photo");
+        }
+        //case 2 nre profile photo
     }
 
     /**

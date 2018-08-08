@@ -49,6 +49,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:10.2.6'
     implementation 'com.google.firebase:firebase-core:10.2.6'
 
+    //firebase Storage
+    implementation 'com.google.firebase:firebase-storage:10.2.6'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
