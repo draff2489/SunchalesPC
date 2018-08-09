@@ -26,11 +26,13 @@ import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.UniversalImageLoader
 
 public class NextActivity extends AppCompatActivity {
 
-    //Firebase
+    private static final String TAG = "NextActivity";
+
+    //firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference myref;
+    private DatabaseReference myRef;
     private FirebaseMethods mFirebaseMethods;
 
     //widgets
@@ -39,9 +41,7 @@ public class NextActivity extends AppCompatActivity {
     //vars
     private String mAppend = "file:/";
     private int imageCount = 0;
-    private String imageUrl;
-
-    private static final String TAG = "NextActivity";
+    private String imgUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,79 +50,79 @@ public class NextActivity extends AppCompatActivity {
         mFirebaseMethods = new FirebaseMethods(NextActivity.this);
         mCaption = (EditText) findViewById(R.id.caption);
 
-        Log.d(TAG, "onCreate: got the chosen image" + getIntent().getStringExtra(getString(R.string.selected_image)));
         setupFirebaseAuth();
 
         ImageView backArrow = (ImageView) findViewById(R.id.ivBackArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: closing the activity.");
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: closing the activity");
                 finish();
             }
         });
 
+
         TextView share = (TextView) findViewById(R.id.tvShare);
         share.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to the final screen. ");
-                //upload the image to Firebase
-                Toast.makeText(NextActivity.this, "Intentando subir una nueva foto", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: navigating to the final share screen.");
+                //upload the image to firebase
+                Toast.makeText(NextActivity.this, "Attempting to upload new photo", Toast.LENGTH_SHORT).show();
                 String caption = mCaption.getText().toString();
-                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imageUrl);
+                mFirebaseMethods.uploadNewPhoto(getString(R.string.new_photo), caption, imageCount, imgUrl);
             }
         });
 
         setImage();
     }
 
-    private void method(){
+    private void someMethod() {
         /*
-        step 1: reate a data model for photos
-
-        step 2: add properties to the photo objects (caption, date, imagerURL, photo_id, tags, user_id)
-
-        step 3: count the number fo photos that the user already has.
-
-        step 4:
-        a) upload the photo to Firebase Storage
-        b) inset into photos node
-        c) insert into user_photos node
+            Step 1)
+            Create a data model for Photos
+            Step 2)
+            Add properties to the Photo Objects (caption, date, imageUrl, photo_id, tags, user_id)
+            Step 3)
+            Count the number of photos that the user already has.
+            Step 4)
+            a) Upload the photo to Firebase Storage
+            b) insert into 'photos' node
+            c) insert into 'user_photos' node
          */
 
     }
 
+
     /**
-     * get the image url from the incoming intent and displays the chosen image
+     * gets the image url from the incoming intent and displays the chosen image
      */
-    private void setImage(){
+    private void setImage() {
         Intent intent = getIntent();
         ImageView image = (ImageView) findViewById(R.id.imageShare);
-        imageUrl = intent.getStringExtra(getString(R.string.selected_image));
-        UniversalImageLoader.setImage(intent.getStringExtra(getString(R.string.selected_image)), image, null, mAppend );
+        imgUrl = intent.getStringExtra(getString(R.string.selected_image));
+        UniversalImageLoader.setImage(imgUrl, image, null, mAppend);
     }
 
-    /*
-    ------------------------------------ Firebase ---------------------------------------------
+     /*
+     ------------------------------------ Firebase ---------------------------------------------
      */
 
     /**
      * Setup the firebase auth object
      */
     private void setupFirebaseAuth() {
-        Log.d(TAG, "setupFirebaseAuth: setting up febase auth.");
-
+        Log.d(TAG, "setupFirebaseAuth: setting up firebase auth.");
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        myref = mFirebaseDatabase.getReference();
+        myRef = mFirebaseDatabase.getReference();
         Log.d(TAG, "onDataChange: image count: " + imageCount);
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+
 
                 if (user != null) {
                     // User is signed in
@@ -135,12 +135,14 @@ public class NextActivity extends AppCompatActivity {
             }
         };
 
-        myref.addValueEventListener(new ValueEventListener() {
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 imageCount = mFirebaseMethods.getImageCount(dataSnapshot);
                 Log.d(TAG, "onDataChange: image count: " + imageCount);
+
             }
 
             @Override
@@ -149,6 +151,7 @@ public class NextActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onStart() {

@@ -66,20 +66,20 @@ public class FirebaseMethods {
         return count;
     }
 
-    public void uploadNewPhoto(String photoType, String caption, int count, String imageUrl){
-        Log.d(TAG, "uploadNewPhoto: attempting to upload new photo");
+    public void uploadNewPhoto(String photoType, String caption, int count, String imgUrl){
+        Log.d(TAG, "uploadNewPhoto: attempting to uplaod new photo.");
 
         FilePaths filePaths = new FilePaths();
-        //case1: New photo
-        if (photoType.equals(mContext.getString(R.string.new_photo))){
-            Log.d(TAG, "uploadNewPhoto: uploading new photo");
+        //case1) new photo
+        if(photoType.equals(mContext.getString(R.string.new_photo))){
+            Log.d(TAG, "uploadNewPhoto: uploading NEW photo.");
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
             StorageReference storageReference = mStorageReference
                     .child(filePaths.FIREBASE_IMAGE_STORAGE + "/" + user_id + "/photo" + (count + 1));
 
-            //Convert image URL to bitmap
-            Bitmap bm = ImageManager.getBimap(imageUrl);
+            //convert image url to bitmap
+            Bitmap bm = ImageManager.getBitmap(imgUrl);
             byte[] bytes = ImageManager.getBytesFromBitmap(bm, 100);
 
             UploadTask uploadTask = null;
@@ -88,37 +88,41 @@ public class FirebaseMethods {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri firebaseUri = taskSnapshot.getDownloadUrl();
+                    Uri firebaseUrl = taskSnapshot.getDownloadUrl();
 
-                    Toast.makeText(mContext, "La foto se cargó correctamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
 
-                    //add the new photo to photos node and user_photos node
+                    //add the new photo to 'photos' node and 'user_photos' node
 
                     //navigate to the main feed so the user can see their photo
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "onFailure: Photo upload Failed");
-                    Toast.makeText(mContext, "La carga de la foto falló: ", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onFailure: Photo upload failed.");
+                    Toast.makeText(mContext, "Photo upload failed ", Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    if (progress - 15 > mPhotoUploadProgress) {
-                        Toast.makeText(mContext, "Progreso de carga de la foto: " + String.format("$.0f", progress) + "%", Toast.LENGTH_SHORT).show();
+
+                    if(progress - 15 > mPhotoUploadProgress){
+                        Toast.makeText(mContext, "photo upload progress: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
                         mPhotoUploadProgress = progress;
                     }
 
-                    Log.d(TAG, "onProgress: Upload progress: " + progress + "% done");
+                    Log.d(TAG, "onProgress: upload progress: " + progress + "% done");
                 }
             });
 
-        } else if (photoType.equals(mContext.getString(R.string.profile_photo))){
-            Log.d(TAG, "uploadNewPhoto: uploading new profile photo");
         }
-        //case 2 nre profile photo
+        //case new profile photo
+        else if(photoType.equals(mContext.getString(R.string.profile_photo))){
+            Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
+        }
+
     }
 
     /**

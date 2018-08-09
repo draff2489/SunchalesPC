@@ -11,22 +11,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ImageManager {
+
     private static final String TAG = "ImageManager";
 
-    public static Bitmap getBimap (String imageUrl){
-        File imageFile = new File(imageUrl);
+    public static Bitmap getBitmap(String imgUrl){
+        File imageFile = new File(imgUrl);
         FileInputStream fis = null;
         Bitmap bitmap = null;
-        try {
+        try{
             fis = new FileInputStream(imageFile);
             bitmap = BitmapFactory.decodeStream(fis);
-        }catch(FileNotFoundException e){
-            Log.e(TAG, "getBimap: FileNotFoundException: " + e.getMessage() );
+        }catch (FileNotFoundException e){
+            Log.e(TAG, "getBitmap: FileNotFoundException: " + e.getMessage() );
         }finally {
-            try {
+            try{
                 fis.close();
-            }catch(IOException e){
-                Log.e(TAG, "getBimap: IOException: " + e.getMessage() );
+            }catch (IOException e){
+                Log.e(TAG, "getBitmap: FileNotFoundException: " + e.getMessage() );
             }
         }
         return bitmap;
@@ -39,9 +40,10 @@ public class ImageManager {
      * @param quality
      * @return
      */
-    public static byte[] getBytesFromBitmap (Bitmap bm, int quality) {
+    public static byte[] getBytesFromBitmap(Bitmap bm, int quality){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, quality, stream);
         return stream.toByteArray();
     }
 }
+

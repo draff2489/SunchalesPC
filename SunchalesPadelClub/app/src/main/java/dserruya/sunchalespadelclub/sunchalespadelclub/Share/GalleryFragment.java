@@ -93,17 +93,19 @@ public class GalleryFragment extends Fragment {
 
     private void init() {
         FilePaths filePaths = new FilePaths();
-        //check for other folders inside "/storage/emulated/0/pictures"
-        if (FileSearch.getDirectoryPaths(filePaths.PICTURES) != null) {
-            directories = FileSearch.getDirectoryPaths(filePaths.PICTURES);
-        }
 
+        //check for other folders indide "/storage/emulated/0/pictures"
+        if (FileSearch.getDirectoryPaths(filePaths.ROOT_DIR) != null) {
+            directories = FileSearch.getDirectoryPaths(filePaths.ROOT_DIR);
+        }
         ArrayList<String> directoryNames = new ArrayList<>();
         for (int i = 0; i < directories.size(); i++) {
 
-            int index = directories.get(i).lastIndexOf("/");
-            String string = directories.get(i).substring(index);
-            directoryNames.add(string);
+            if (!directories.get(i).isEmpty()) {
+                int index = directories.get(i).lastIndexOf("/");
+                String string = directories.get(i).substring(index);
+                directoryNames.add(string);
+            }
         }
 
         directories.add(filePaths.CAMERA);
@@ -115,16 +117,11 @@ public class GalleryFragment extends Fragment {
 
         directorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Log.d(TAG, "onItemSelected: selected " + directories.get(position));
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick: selected: " + directories.get(position));
 
-                //setup image grid for the directory chosen
-
-                try {
-                    setupGridView(directories.get(position));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                //setup our image grid for the directory chosen
+                setupGridView(directories.get(position));
             }
 
             @Override
@@ -147,7 +144,7 @@ public class GalleryFragment extends Fragment {
         GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, mAppend, imageURLs);
         gridView.setAdapter(adapter);
 
-        mSelectedImage = imageURLs.get(0);
+        //mSelectedImage = imageURLs.get(0);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
