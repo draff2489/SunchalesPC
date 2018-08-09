@@ -22,7 +22,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
+import dserruya.sunchalespadelclub.sunchalespadelclub.models.Photo;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.User;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.UserAccountSettings;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.UserSettings;
@@ -66,7 +72,7 @@ public class FirebaseMethods {
         return count;
     }
 
-    public void uploadNewPhoto(String photoType, String caption, int count, String imgUrl){
+    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl){
         Log.d(TAG, "uploadNewPhoto: attempting to uplaod new photo.");
 
         FilePaths filePaths = new FilePaths();
@@ -90,9 +96,10 @@ public class FirebaseMethods {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri firebaseUrl = taskSnapshot.getDownloadUrl();
 
-                    Toast.makeText(mContext, "photo upload success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "La foto se cargó correctamente", Toast.LENGTH_SHORT).show();
 
                     //add the new photo to 'photos' node and 'user_photos' node
+                    addPhotoToDatabase(caption, firebaseUrl.toString());
 
                     //navigate to the main feed so the user can see their photo
 
@@ -101,7 +108,7 @@ public class FirebaseMethods {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d(TAG, "onFailure: Photo upload failed.");
-                    Toast.makeText(mContext, "Photo upload failed ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Fallo al cargar la foto ", Toast.LENGTH_SHORT).show();
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -109,7 +116,7 @@ public class FirebaseMethods {
                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 
                     if(progress - 15 > mPhotoUploadProgress){
-                        Toast.makeText(mContext, "photo upload progress: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Progreso de carga de la foto: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
                         mPhotoUploadProgress = progress;
                     }
 
@@ -123,6 +130,31 @@ public class FirebaseMethods {
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
         }
 
+    }
+
+    private String getTimeStamp(){
+        Locale spanish = new Locale("es", "AR");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss'Z'", spanish);
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+        return sdf.format(new Date());
+    }
+
+    private void addPhotoToDatabase(String caption, String url) {
+        Log.d(TAG, "addPhotoToDatabase: adding photo to database");
+
+        String tags = StringManipulation.getTags(caption);
+        String newPhotoKey = myRef.child(mContext.getString(R.string.dbname_photos)).push().getKey();
+        Photo photo = new Photo();
+        photo.setCaption(caption);
+        photo.setDate_created(getTimeStamp());
+        photo.setImage_path(url);
+        photo.setTags(tags);
+        photo.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        photo.setPhoto_id(newPhotoKey);
+
+        //inset into mFirebaseDatabase
+        myRef.child(mContext.getString(R.string.dbname_user_photos)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(newPhotoKey).setValue(photo);
+        myRef.child(mContext.getString(R.string.dbname_photos)).child(newPhotoKey).setValue(photo);
     }
 
     /**
