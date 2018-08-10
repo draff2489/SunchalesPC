@@ -74,12 +74,12 @@ public class FirebaseMethods {
         return count;
     }
 
-    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl){
+    public void uploadNewPhoto(String photoType, final String caption, int count, final String imgUrl) {
         Log.d(TAG, "uploadNewPhoto: attempting to uplaod new photo.");
 
         FilePaths filePaths = new FilePaths();
         //case1) new photo
-        if(photoType.equals(mContext.getString(R.string.new_photo))){
+        if (photoType.equals(mContext.getString(R.string.new_photo))) {
             Log.d(TAG, "uploadNewPhoto: uploading NEW photo.");
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -119,7 +119,7 @@ public class FirebaseMethods {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 
-                    if(progress - 15 > mPhotoUploadProgress){
+                    if (progress - 15 > mPhotoUploadProgress) {
                         Toast.makeText(mContext, "Progreso de carga de la foto: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
                         mPhotoUploadProgress = progress;
                     }
@@ -130,7 +130,7 @@ public class FirebaseMethods {
 
         }
         //case new profile photo
-        else if(photoType.equals(mContext.getString(R.string.profile_photo))){
+        else if (photoType.equals(mContext.getString(R.string.profile_photo))) {
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -166,7 +166,7 @@ public class FirebaseMethods {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 
-                    if(progress - 15 > mPhotoUploadProgress){
+                    if (progress - 15 > mPhotoUploadProgress) {
                         Toast.makeText(mContext, "Progreso de carga de la foto: " + String.format("%.0f", progress) + "%", Toast.LENGTH_SHORT).show();
                         mPhotoUploadProgress = progress;
                     }
@@ -178,7 +178,7 @@ public class FirebaseMethods {
 
     }
 
-    private void setProfilePhoto(String url){
+    private void setProfilePhoto(String url) {
         Log.d(TAG, "setProfilePhoto: setting new profile photo " + url);
         myRef.child(mContext.getString(R.string.dbname_user_account_settings))
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -186,7 +186,7 @@ public class FirebaseMethods {
                 .setValue(url);
     }
 
-    private String getTimeStamp(){
+    private String getTimeStamp() {
         Locale spanish = new Locale("es", "AR");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm:ss'Z'", spanish);
         sdf.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
@@ -213,14 +213,15 @@ public class FirebaseMethods {
 
     /**
      * Update user_account_settings node for current user
+     *
      * @param displayname
      * @param description
      * @param phoneNumber
      */
-    public void updateUserAccountSettings(String displayname, String description, long phoneNumber){
+    public void updateUserAccountSettings(String displayname, String description, long phoneNumber) {
         Log.d(TAG, "updateUserAccountSettings: updating user_account_settings");
 
-        if (displayname != null){
+        if (displayname != null) {
             myRef.child(mContext.getString(R.string.dbname_user_account_settings))
                     .child(userID)
                     .child(mContext.getString(R.string.field_display_name))
@@ -242,9 +243,10 @@ public class FirebaseMethods {
 
     /**
      * Update Username in the user's node and the user_account_settings node
+     *
      * @param username
      */
-    public void updateUsername(String username){
+    public void updateUsername(String username) {
         Log.d(TAG, "updateUsername: Updating username to " + username);
 
         myRef.child(mContext.getString(R.string.dbname_users))
@@ -260,9 +262,10 @@ public class FirebaseMethods {
 
     /**
      * Update the email in the user's node
+     *
      * @param email
      */
-    public void updateEmail(String email){
+    public void updateEmail(String email) {
         Log.d(TAG, "updateEmail: Updating email to " + email);
 
         myRef.child(mContext.getString(R.string.dbname_users))

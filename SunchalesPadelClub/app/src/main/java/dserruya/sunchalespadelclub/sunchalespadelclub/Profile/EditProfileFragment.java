@@ -254,7 +254,7 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
         mEmail.setText(userSettings.getUser().getEmail());
         mPhoneNumber.setText(String.valueOf(userSettings.getUser().getPhone_number()));
 
-        mProfilePhoto.setOnClickListener(new View.OnClickListener() {
+        mChangeProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: changing profile photo");
