@@ -73,13 +73,6 @@ public class ProfileActivity extends AppCompatActivity{
         rvTournaments.setAdapter(adapter);
     }
 
-
-        private void setProfileImage(){
-        Log.d(TAG, "setProfileImage: setting profile photo");
-        String imageURL = "static1.squarespace.com/static/54f3390ee4b095d9141b86a5/t/55d748b2e4b086d36aa80de2/1475761660263/Phishing+Tests";
-        UniversalImageLoader.setImage(imageURL, profilePhoto, mProgressBar, "https://");
-    }
-
     *//*  Datos de prueba*//*
     private ArrayList<Tournaments> dataSet() {
         ArrayList<Tournaments> data = new ArrayList<>();
@@ -92,34 +85,5 @@ public class ProfileActivity extends AppCompatActivity{
         return data;
     }
 
-    private void setupActivityWidgets(){
-        mProgressBar = (ProgressBar) findViewById(R.id.profileProgressBar);
-        mProgressBar.setVisibility(View.GONE);
-        profilePhoto = (ImageView) findViewById(R.id.profile_photo);
-    }
-
-    private void setupToolbar () {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.profileToolbar);
-        setSupportActionBar(toolbar);
-
-        ImageView profileMenu = (ImageView) findViewById(R.id.profileMenu);
-        profileMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: navigating to account settings. ");
-                Intent intent = new Intent (mContext, AccountSettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void setupBottomNavigationView() {
-        Log.d(TAG, "setupNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setUpBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }*/
+*/
 }

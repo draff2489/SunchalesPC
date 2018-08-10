@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,10 +28,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import dserruya.sunchalespadelclub.sunchalespadelclub.DataBase.Tournaments;
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.BottomNavigationViewHelper;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.FirebaseMethods;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.TournamentAdapter;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.UniversalImageLoader;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.UserAccountSettings;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.UserSettings;
@@ -74,10 +79,12 @@ public class ProfileFragment extends Fragment {
         bottomNavigationViewEX = (BottomNavigationViewEx) view.findViewById(R.id.bottomNavViewBar);
         mContext = getActivity();
         mFirebaseMethods = new FirebaseMethods(getActivity());
+        RecyclerView rvTournaments = (RecyclerView) view.findViewById(R.id.rv_tournaments);
         Log.d(TAG, "onCreateView: started");
 
         setupBottomNavigationView();
         setupToolbar();
+        setupRecyclerView(rvTournaments);
 
         setupFirebaseAuth();
 
@@ -89,6 +96,7 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
                 intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -119,6 +127,7 @@ public class ProfileFragment extends Fragment {
                 Log.d(TAG, "onClick: navigating to account settings. ");
                 Intent intent = new Intent (mContext, AccountSettingsActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
@@ -126,7 +135,7 @@ public class ProfileFragment extends Fragment {
     private void setupBottomNavigationView() {
         Log.d(TAG, "setupNavigationView: setting up BottomNavigationView");
         BottomNavigationViewHelper.setUpBottomNavigationView(bottomNavigationViewEX);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEX);
+        BottomNavigationViewHelper.enableNavigation(mContext,getActivity(), bottomNavigationViewEX);
         Menu menu = bottomNavigationViewEX.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
@@ -190,5 +199,24 @@ public class ProfileFragment extends Fragment {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+     /*  Datos de prueba*/
+    private ArrayList<Tournaments> dataSet() {
+        ArrayList<Tournaments> data = new ArrayList<>();
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "5", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "1", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "6", R.drawable.ic_android));
+        data.add(new Tournaments("NOMBRE TORNEO", "2", R.drawable.ic_android));
+        return data;
+    }
+
+    private void setupRecyclerView(RecyclerView rvTournaments){
+        LinearLayoutManager glm = new LinearLayoutManager(mContext);
+        rvTournaments.setLayoutManager(glm);
+        TournamentAdapter adapter = new TournamentAdapter(dataSet());
+        rvTournaments.setAdapter(adapter);
     }
 }

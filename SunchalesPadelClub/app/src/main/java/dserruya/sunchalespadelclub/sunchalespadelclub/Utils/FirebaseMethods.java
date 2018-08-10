@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import dserruya.sunchalespadelclub.sunchalespadelclub.Home.HomeActivity;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Profile.AccountSettingsActivity;
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.Photo;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.User;
@@ -132,6 +133,11 @@ public class FirebaseMethods {
         //case new profile photo
         else if (photoType.equals(mContext.getString(R.string.profile_photo))) {
             Log.d(TAG, "uploadNewPhoto: uploading new PROFILE photo");
+
+            ((AccountSettingsActivity)mContext).setViewPager(
+                    ((AccountSettingsActivity)mContext).pagerAdapter
+                            .getFragmentNumber(mContext.getString(R.string.edit_profile_fragment))
+            );
 
             String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
             StorageReference storageReference = mStorageReference

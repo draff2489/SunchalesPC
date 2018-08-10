@@ -42,7 +42,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private Context mContext;
 
-    private SectionsStatePagerAdapter pagerAdapter;
+    public SectionsStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
     private RelativeLayout mRelativeLayout;
 
@@ -98,7 +98,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         pagerAdapter.addFragment(new SignOutFragment(), getString(R.string.log_out_fragment)); //fragment 1
     }
 
-    private void setViewPager(int fragmentNumber) {
+    public void setViewPager(int fragmentNumber) {
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigating to fragment #: " + fragmentNumber);
         mViewPager.setAdapter(pagerAdapter);
@@ -132,7 +132,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         Log.d(TAG, "setupNavigationView: setting up BottomNavigationView");
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setUpBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(mContext, bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(mContext, this,bottomNavigationViewEx);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
