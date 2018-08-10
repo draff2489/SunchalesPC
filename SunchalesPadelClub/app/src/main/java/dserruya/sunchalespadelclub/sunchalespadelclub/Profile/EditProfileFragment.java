@@ -1,5 +1,6 @@
 package dserruya.sunchalespadelclub.sunchalespadelclub.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Share.ShareActivity;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.FirebaseMethods;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.UniversalImageLoader;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Dialogs.ConfirmPasswordDialog;
@@ -251,6 +253,16 @@ public class EditProfileFragment extends Fragment implements ConfirmPasswordDial
         mDescription.setText(settings.getDescription());
         mEmail.setText(userSettings.getUser().getEmail());
         mPhoneNumber.setText(String.valueOf(userSettings.getUser().getPhone_number()));
+
+        mProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: changing profile photo");
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     /*

@@ -26,6 +26,11 @@ public class ShareActivity extends AppCompatActivity{
 
     }
 
+    public int getTask(){
+        Log.d(TAG, "getTask: TASK:" + getIntent().getFlags());
+        return getIntent().getFlags();
+    }
+
     private void init(){
         Log.d(TAG, "init: inflating gallery fragment" );
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import dserruya.sunchalespadelclub.sunchalespadelclub.Profile.AccountSettingsActivity;
 import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.FilePaths;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.FileSearch;
@@ -74,6 +75,17 @@ public class GalleryFragment extends Fragment {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: navigating to the final screen. ");
 
+                if (isRootTask()){
+                    Intent intent = new Intent(getActivity(), NextActivity.class);
+                    intent.putExtra(getString(R.string.selected_image), mSelectedImage);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                    intent.putExtra(getString(R.string.selected_image), mSelectedImage);
+                    intent.putExtra(getString(R.string.return_to_fragment),getString(R.string.edit_profile_fragment));
+                    startActivity(intent);
+                }
+
                 Intent intent = new Intent(getActivity(), NextActivity.class);
                 intent.putExtra(getString(R.string.selected_image), mSelectedImage);
                 startActivity(intent);
@@ -89,6 +101,14 @@ public class GalleryFragment extends Fragment {
         init();
 
         return view;
+    }
+
+    private boolean isRootTask(){
+        if (((ShareActivity)getActivity()).getTask() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void init() {
