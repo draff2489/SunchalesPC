@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -26,8 +27,9 @@ import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.BottomNavigationViewHelper;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.TournamentAdapter;
 import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.UniversalImageLoader;
+import dserruya.sunchalespadelclub.sunchalespadelclub.Utils.ViewProfileFragment;
 
-public class ProfileActivity extends AppCompatActivity{
+public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
 
@@ -55,14 +57,33 @@ public class ProfileActivity extends AppCompatActivity{
         setupRecyclerView();*/
     }
 
-    private void init(){
+    private void init() {
         Log.d(TAG, "init: inflating " + getString(R.string.profile_fragment));
 
-        ProfileFragment fragment = new ProfileFragment();
-        FragmentTransaction transaction = ProfileActivity.this.getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(getString(R.string.profile_fragment));
-        transaction.commit();
+        Intent intent = getIntent();
+        if (intent.hasExtra(getString(R.string.calling_activity))) {
+            Log.d(TAG, "init: searching for user object attached as intent extra");
+            if (intent.hasExtra(getString(R.string.intent_user))) {
+                Log.d(TAG, "init: inflating vew profile");
+                ViewProfileFragment fragment = new ViewProfileFragment();
+                Bundle args = new Bundle();
+                args.putParcelable(getString(R.string.intent_user), intent.getParcelableExtra(getString(R.string.intent_user)));
+                fragment.setArguments(args);
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(getString(R.string.view_profile_fragment));
+                transaction.commit();
+            } else {
+                Toast.makeText(mContext, "Algo salió mal", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            ProfileFragment fragment = new ProfileFragment();
+            FragmentTransaction transaction = ProfileActivity.this.getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(getString(R.string.profile_fragment));
+            transaction.commit();
+        }
     }
 
     /*private void setupRecyclerView(){

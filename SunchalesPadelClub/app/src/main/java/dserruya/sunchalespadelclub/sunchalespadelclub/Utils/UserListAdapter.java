@@ -1,6 +1,7 @@
 package dserruya.sunchalespadelclub.sunchalespadelclub.Utils;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -25,16 +26,17 @@ import dserruya.sunchalespadelclub.sunchalespadelclub.R;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.User;
 import dserruya.sunchalespadelclub.sunchalespadelclub.models.UserAccountSettings;
 
-public class UserListAdapter extends ArrayAdapter<User>{
+public class UserListAdapter extends ArrayAdapter<User> {
 
     private static final String TAG = "UserListAdapter";
 
+
     private LayoutInflater mInflater;
-    private List<User> mUsers= null;
+    private List<User> mUsers = null;
     private int layoutResource;
     private Context mContext;
 
-    public UserListAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
+    public UserListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<User> objects) {
         super(context, resource, objects);
         mContext = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,28 +44,32 @@ public class UserListAdapter extends ArrayAdapter<User>{
         this.mUsers = objects;
     }
 
-    private static class ViewHolder{
+    private static class ViewHolder {
         TextView username, email;
         CircleImageView profileImage;
     }
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
         final ViewHolder holder;
 
-        if (convertView == null){
+        if (convertView == null) {
             convertView = mInflater.inflate(layoutResource, parent, false);
             holder = new ViewHolder();
 
             holder.username = (TextView) convertView.findViewById(R.id.username);
             holder.email = (TextView) convertView.findViewById(R.id.email);
-            holder.profileImage = (CircleImageView) convertView.findViewById(R.id.profilePhoto);
+            holder.profileImage = (CircleImageView) convertView.findViewById(R.id.profile_image);
 
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
 
         holder.username.setText(getItem(position).getUsername());
         holder.email.setText(getItem(position).getEmail());
@@ -75,12 +81,14 @@ public class UserListAdapter extends ArrayAdapter<User>{
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                    Log.d(TAG, "onDataChange: found user: " + singleSnapshot.getValue(UserAccountSettings.class).toString());
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.d(TAG, "onDataChange: found user: " +
+                            singleSnapshot.getValue(UserAccountSettings.class).toString());
 
-                ImageLoader imageLoader = ImageLoader.getInstance();
+                    ImageLoader imageLoader = ImageLoader.getInstance();
 
-                imageLoader.displayImage(singleSnapshot.getValue(UserAccountSettings.class).getProfile_photo(), holder.profileImage);
+                    imageLoader.displayImage(singleSnapshot.getValue(UserAccountSettings.class).getProfile_photo(),
+                            holder.profileImage);
                 }
             }
 
